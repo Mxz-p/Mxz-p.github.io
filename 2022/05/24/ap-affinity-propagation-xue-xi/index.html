@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, 梦湘">
+    <meta name="keywords" content="AP(Affinity Propagation)学习, 梦湘">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | 梦湘</title>
+    <title>AP(Affinity Propagation)学习 | 梦湘</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -415,12 +415,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title">AP(Affinity Propagation)学习</h1>
                 </div>
             </div>
         </div>
@@ -548,28 +548,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-05-20
+                    2022-05-24
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-05-20
+                    2022-05-24
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    73
+                    890
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    3 分
                 </div>
                 
 
@@ -589,19 +589,129 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span>
+                <p>[TOC]</p>
+<h3 id="一、AP算法介绍"><a href="#一、AP算法介绍" class="headerlink" title="一、AP算法介绍"></a>一、AP算法介绍</h3><p>AP（Affinity Propagation）算法由 Brendan Frey 和 Delbert Dueck 于 2007 年在《科学》杂志上首次发表。AP算法被翻译为近邻传播算法或者是亲和力传播算法，是一种聚类算法。但是与传统的聚类算法相比，AP算法不需要指定簇的数量。其核心思想是：所有样本点都是潜在的聚类中心点，数据点通过相似性矩阵两者相互连线，通过边的消息传递来计算样本的聚类中心。</p>
+<ol>
+<li>相似度矩阵（Similarity Matrix）</li>
+</ol>
+<p>根据给定的数据集A(m×n)，计算出相似矩阵S(m×m)。S(i，j)表示两样本数据点的负平方距离（即相似度）：<br>$$<br>s(i,j)=-||x_i-x_j||<br>$$</p>
+<ol start="2">
+<li>吸引度矩阵（Responsibility Matrix）</li>
+</ol>
+<p>初始化矩阵元素为0，然后使用以下公式计算矩阵中的元素值（即该位置元素值等于其减去该行除该元素外的最大值）：</p>
+<img src="C:\Users\PYZ\AppData\Roaming\Typora\typora-user-images\image-20220524193228334.png" alt="image-20220524193228334" style="zoom: 50%;">
+
+<p>其中i代表矩阵相关行，k代表列，初始化的归属度矩阵a为0</p>
+<ol start="3">
+<li>归属度矩阵（Availability Matrix）</li>
+</ol>
+<p>初始化矩阵元素为0，使用单独的方程计算更新矩阵对角线的元素（即对角线元素值等于该列中除去对角线的元素后，其他正元素相加之和）：</p>
+<img src="C:\Users\PYZ\AppData\Roaming\Typora\typora-user-images\image-20220524193448735.png" alt="image-20220524193448735" style="zoom:50%;">
+
+<p>同时，使用下面公式更新非对角元素的值（即该元素值等于0和该列对角元素值与除去该位置后正值的和，取较小值）：</p>
+<img src="C:\Users\PYZ\AppData\Roaming\Typora\typora-user-images\image-20220524194050496.png" alt="image-20220524194050496" style="zoom:50%;">
+
+<p>其中i代表矩阵相关行，k代表列</p>
+<h3 id="二、AP算法实现过程"><a href="#二、AP算法实现过程" class="headerlink" title="二、AP算法实现过程"></a>二、AP算法实现过程</h3><p>AP算法实现步骤：</p>
+<ol>
+<li>输入数据集D；</li>
+<li>根据输入数据集D，计算相似度矩阵S；</li>
+<li>初始化两个矩阵：吸引度矩阵R和归属度矩阵A；</li>
+<li>根据上面的公式，交替迭代更新矩阵R和A；</li>
+<li>直到满足收敛条件（边在迭代中保持不变或达到设定的迭代次数），阻尼系数。</li>
+</ol>
+<h3 id="三、AP算法编程实现"><a href="#三、AP算法编程实现" class="headerlink" title="三、AP算法编程实现"></a>三、AP算法编程实现</h3><pre class=" language-python"><code class="language-python"><span class="token string">""</span>"
+
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>cluster <span class="token keyword">import</span> AffinityPropagation
+<span class="token keyword">from</span> sklearn <span class="token keyword">import</span> metrics
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>datasets <span class="token keyword">import</span> make_blobs
+
+<span class="token comment" spellcheck="true"># %%</span>
+<span class="token comment" spellcheck="true"># Generate sample data</span>
+<span class="token comment" spellcheck="true"># --------------------</span>
+centers <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+X<span class="token punctuation">,</span> labels_true <span class="token operator">=</span> make_blobs<span class="token punctuation">(</span>
+    n_samples<span class="token operator">=</span><span class="token number">300</span><span class="token punctuation">,</span> centers<span class="token operator">=</span>centers<span class="token punctuation">,</span> cluster_std<span class="token operator">=</span><span class="token number">0.5</span><span class="token punctuation">,</span> random_state<span class="token operator">=</span><span class="token number">0</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># %%</span>
+<span class="token comment" spellcheck="true"># Compute Affinity Propagation</span>
+<span class="token comment" spellcheck="true"># ----------------------------</span>
+af <span class="token operator">=</span> AffinityPropagation<span class="token punctuation">(</span>preference<span class="token operator">=</span><span class="token operator">-</span><span class="token number">50</span><span class="token punctuation">,</span> random_state<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">.</span>fit<span class="token punctuation">(</span>X<span class="token punctuation">)</span>
+cluster_centers_indices <span class="token operator">=</span> af<span class="token punctuation">.</span>cluster_centers_indices_
+labels <span class="token operator">=</span> af<span class="token punctuation">.</span>labels_
+
+n_clusters_ <span class="token operator">=</span> len<span class="token punctuation">(</span>cluster_centers_indices<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Estimated number of clusters: %d"</span> <span class="token operator">%</span> n_clusters_<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Homogeneity: %0.3f"</span> <span class="token operator">%</span> metrics<span class="token punctuation">.</span>homogeneity_score<span class="token punctuation">(</span>labels_true<span class="token punctuation">,</span> labels<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Completeness: %0.3f"</span> <span class="token operator">%</span> metrics<span class="token punctuation">.</span>completeness_score<span class="token punctuation">(</span>labels_true<span class="token punctuation">,</span> labels<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"V-measure: %0.3f"</span> <span class="token operator">%</span> metrics<span class="token punctuation">.</span>v_measure_score<span class="token punctuation">(</span>labels_true<span class="token punctuation">,</span> labels<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Adjusted Rand Index: %0.3f"</span> <span class="token operator">%</span> metrics<span class="token punctuation">.</span>adjusted_rand_score<span class="token punctuation">(</span>labels_true<span class="token punctuation">,</span> labels<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>
+    <span class="token string">"Adjusted Mutual Information: %0.3f"</span>
+    <span class="token operator">%</span> metrics<span class="token punctuation">.</span>adjusted_mutual_info_score<span class="token punctuation">(</span>labels_true<span class="token punctuation">,</span> labels<span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>
+    <span class="token string">"Silhouette Coefficient: %0.3f"</span>
+    <span class="token operator">%</span> metrics<span class="token punctuation">.</span>silhouette_score<span class="token punctuation">(</span>X<span class="token punctuation">,</span> labels<span class="token punctuation">,</span> metric<span class="token operator">=</span><span class="token string">"sqeuclidean"</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># %%</span>
+<span class="token comment" spellcheck="true"># Plot result</span>
+<span class="token comment" spellcheck="true"># -----------</span>
+<span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
+<span class="token keyword">from</span> itertools <span class="token keyword">import</span> cycle
+
+plt<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token string">"all"</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>figure<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>clf<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+colors <span class="token operator">=</span> cycle<span class="token punctuation">(</span><span class="token string">"bgrcmykbgrcmykbgrcmykbgrcmyk"</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> k<span class="token punctuation">,</span> col <span class="token keyword">in</span> zip<span class="token punctuation">(</span>range<span class="token punctuation">(</span>n_clusters_<span class="token punctuation">)</span><span class="token punctuation">,</span> colors<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    class_members <span class="token operator">=</span> labels <span class="token operator">==</span> k
+    cluster_center <span class="token operator">=</span> X<span class="token punctuation">[</span>cluster_centers_indices<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">]</span>
+    plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>X<span class="token punctuation">[</span>class_members<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> X<span class="token punctuation">[</span>class_members<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> col <span class="token operator">+</span> <span class="token string">"."</span><span class="token punctuation">)</span>
+    plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>
+        cluster_center<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        cluster_center<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"o"</span><span class="token punctuation">,</span>
+        markerfacecolor<span class="token operator">=</span>col<span class="token punctuation">,</span>
+        markeredgecolor<span class="token operator">=</span><span class="token string">"k"</span><span class="token punctuation">,</span>
+        markersize<span class="token operator">=</span><span class="token number">14</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span>
+    <span class="token keyword">for</span> x <span class="token keyword">in</span> X<span class="token punctuation">[</span>class_members<span class="token punctuation">]</span><span class="token punctuation">:</span>
+        plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span><span class="token punctuation">[</span>cluster_center<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> x<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>cluster_center<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> x<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> col<span class="token punctuation">)</span>
+
+plt<span class="token punctuation">.</span>title<span class="token punctuation">(</span><span class="token string">"Estimated number of clusters: %d"</span> <span class="token operator">%</span> n_clusters_<span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server
+<p>结果实例：</p>
+<pre><code>Estimated number of clusters: 3
+Homogeneity: 0.872
+Completeness: 0.872
+V-measure: 0.872
+Adjusted Rand Index: 0.912
+Adjusted Mutual Information: 0.871
+Silhouette Coefficient: 0.753
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>画图：</p>
+<p><img src="C:\Users\PYZ\AppData\Roaming\Typora\typora-user-images\image-20220524211404861.png" alt="image-20220524211404861"></p>
+<h3 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h3><p>AP算法优点：</p>
+<ol>
+<li>无需提前知道聚类个数；</li>
+<li>对原始数据不敏感；</li>
+<li>对距离矩阵的对称性无要求；</li>
+<li>将数据作为聚类中心，而不是样本点的均值。</li>
+</ol>
+<p>AP算法缺点：</p>
+<ol>
+<li><p>算法的复杂度较高；</p>
+</li>
+<li><p>参考度（对角线元素作为聚类中心的可能性）和阻力系数影响较大。</p>
+</li>
+</ol>
+<h3 id="五、参考"><a href="#五、参考" class="headerlink" title="五、参考"></a>五、参考</h3><p>Scikit-learn. (n.d.). <em>2.3. Clustering — scikit-learn 0.22.2 documentation</em>. scikit-learn: machine learning in Python — scikit-learn 0.16.1 documentation. Retrieved April 18, 2020, from <a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/modules/clustering.html#affinity-propagation">https://scikit-learn.org/stable/modules/clustering.html#affinity-propagation</a></p>
 
                 
             </div>
@@ -628,7 +738,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://Mxz-p.github.io/2022/05/20/hello-world/">https://Mxz-p.github.io/2022/05/20/hello-world/</a>
+                    <a href="https://Mxz-p.github.io/2022/05/24/ap-affinity-propagation-xue-xi/">https://Mxz-p.github.io/2022/05/24/ap-affinity-propagation-xue-xi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -833,9 +943,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/05/24/ap-affinity-propagation-xue-xi/">
                     <div class="card-image">
@@ -853,9 +964,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-05-24
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-05-24
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -864,6 +975,7 @@
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -871,7 +983,7 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
                 <a href="/2022/05/20/hello-world/">
@@ -901,7 +1013,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
