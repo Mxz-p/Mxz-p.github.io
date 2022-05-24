@@ -599,18 +599,15 @@
 <li>吸引度矩阵（Responsibility Matrix）</li>
 </ol>
 <p>初始化矩阵元素为0，然后使用以下公式计算矩阵中的元素值（即该位置元素值等于其减去该行除该元素外的最大值）：</p>
-<img src="/2022/05/24/ap-affinity-propagation-xue-xi/Blog\source\_posts\AP-Affinity-Propagation-学习\image-20220524193228334.png" alt="image-20220524193228334" style="zoom: 50%;">
-
+<p><img src="/2022/05/24/ap-affinity-propagation-xue-xi/Blog\source_posts\AP-Affinity-Propagation-学习\image-20220524193228334.png"></p>
 <p>其中i代表矩阵相关行，k代表列，初始化的归属度矩阵a为0</p>
 <ol start="3">
 <li>归属度矩阵（Availability Matrix）</li>
 </ol>
 <p>初始化矩阵元素为0，使用单独的方程计算更新矩阵对角线的元素（即对角线元素值等于该列中除去对角线的元素后，其他正元素相加之和）：</p>
-<img src="/2022/05/24/ap-affinity-propagation-xue-xi/Blog\source\_posts\AP-Affinity-Propagation-学习\image-20220524193448735.png" alt="image-20220524193448735" style="zoom:50%;">
-
+<p><img src="/2022/05/24/ap-affinity-propagation-xue-xi/Blog\source_posts\AP-Affinity-Propagation-学习\image-20220524193448735.png"></p>
 <p>同时，使用下面公式更新非对角元素的值（即该元素值等于0和该列对角元素值与除去该位置后正值的和，取较小值）：</p>
-<img src="/2022/05/24/ap-affinity-propagation-xue-xi/Blog\source\_posts\AP-Affinity-Propagation-学习\image-20220524194050496.png" alt="image-20220524194050496" style="zoom:50%;">
-
+<p><img src="/2022/05/24/ap-affinity-propagation-xue-xi/Blog\source_posts\AP-Affinity-Propagation-学习\image-20220524194050496.png"></p>
 <p>其中i代表矩阵相关行，k代表列</p>
 <h3 id="二、AP算法实现过程"><a href="#二、AP算法实现过程" class="headerlink" title="二、AP算法实现过程"></a>二、AP算法实现过程</h3><p>AP算法实现步骤：</p>
 <ol>
@@ -696,7 +693,7 @@ Adjusted Mutual Information: 0.871
 Silhouette Coefficient: 0.753
 </code></pre>
 <p>画图：</p>
-<p><img src="/2022/05/24/ap-affinity-propagation-xue-xi/Blog\source_posts\AP-Affinity-Propagation-学习\image-20220524211404861.png" alt="image-20220524211404861"></p>
+<p><img src="/2022/05/24/ap-affinity-propagation-xue-xi/Blog\source_posts\AP-Affinity-Propagation-学习\image-20220524211404861.png"></p>
 <h3 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h3><p>AP算法优点：</p>
 <ol>
 <li>无需提前知道聚类个数；</li>
